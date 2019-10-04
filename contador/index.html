@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>React</title>
+</head>
+<body>
+    <div id="root"></div>
+    <script crossorigin src="https://unpkg.com/react@16/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>  
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+    <script type="text/babel">
+
+        class MyComponent extends React.Component {
+            state = {
+                counter: 0
+            }
+
+            handleClick = () => {
+                this.setState(prevState => ({
+                   counter: prevState.counter + 1 
+                }));
+            }
+
+            handleChange = (key, value) => {
+                this.setState({
+                    [key] : value
+                });
+            }
+
+            render() {
+                const {name, lastName} = this.state;
+                return (
+                    <div>
+                        <p>Contador: {this.state.counter}</p>
+                        <button onClick={this.handleClick}>
+                        Contar
+                        </button>
+                        <hr />
+                        <div>
+                            <input 
+                                type="text" 
+                                onChange={(event) => {
+                                    this.handleChange("name", event.target.value)
+                                }}
+                            />
+                            <input 
+                                type="text" 
+                                onChange={(event) => {
+                                    this.handleChange("lastName", event.target.value)
+                                }}
+                            />
+                            <p>
+                                {lastName}{name && lastName ? ', ' : null}
+                                {name}
+                            </p>
+                        </div>
+                    </div>
+                )
+            }
+        }
+
+        ReactDOM.render(
+            <MyComponent />,
+            document.getElementById('root')
+        );
+    </script>
+</body>
+</html>
